@@ -1,11 +1,11 @@
-package redis_driver
+package redis_manager
 
 import (
 	"github.com/go-redis/redis"
 )
 
-type Driver struct {
-	drivers map[string]*Connection
+type ConnectionManager struct {
+	connList map[string]*Connection
 }
 
 type Connection struct {
@@ -13,45 +13,45 @@ type Connection struct {
 	options *redis.Options
 }
 
-func NewDriver() *Driver {
-	d := Driver{
-		drivers: make(map[string]*Connection),
+func NewConnectionManager() *ConnectionManager {
+	m := ConnectionManager{
+		connList: make(map[string]*Connection),
 	}
-	return &d
+	return &m
 }
 
-func (d *Driver) Add(name string, options *redis.Options) {
-	d.drivers[name] = &Connection{
+func (m *ConnectionManager) Add(name string, options *redis.Options) {
+	m.connList[name] = &Connection{
 		options: options,
 	}
 }
 
-func (d *Driver) Remove(name string) {
-	delete(d.drivers, name)
+func (m *ConnectionManager) Remove(name string) {
+	delete(m.connList, name)
 }
 
-func (d *Driver) Get(name string) *Connection {
-	con, ok := d.drivers[name]
+func (m *ConnectionManager) Get(name string) *Connection {
+	con, ok := m.connList[name]
 	if !ok {
 		return nil
 	}
 	return con
 }
 
-func (d *Driver) Exist(name string) bool {
-	con := d.Get(name)
+func (m *ConnectionManager) Exist(name string) bool {
+	con := m.Get(name)
 	if con == nil {
 		return false
 	}
 	return true
 }
 
-func (d *Driver) length() int {
-	return len(d.drivers)
+func (m *ConnectionManager) length() int {
+	return len(m.connList)
 }
 
-func (d *Driver) Reconnection(name string) *Connection {
-	con := d.Get(name)
+func (m *ConnectionManager) Reconnection(name string) *Connection {
+	con := m.Get(name)
 	if con == nil {
 		return con
 	}

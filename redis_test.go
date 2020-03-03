@@ -1,4 +1,4 @@
-package redis_driver
+package redis_manager
 
 import (
 	"github.com/go-redis/redis"
@@ -6,8 +6,8 @@ import (
 	"testing"
 )
 
-func TestRedisDriver(t *testing.T) {
-	d := NewDriver()
+func TestAll(t *testing.T) {
+	d := NewConnectionManager()
 	d.Add("test1", &redis.Options{
 		Addr:     "localhost:6379",
 		Password: "123456", // no password set

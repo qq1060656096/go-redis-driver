@@ -1,4 +1,4 @@
-module github.com/qq1060656096/go-redis-driver
+module github.com/qq1060656096/go-redis-manager
 
 go 1.13
 
