@@ -50,15 +50,6 @@ func (m *ConnectionManager) length() int {
 	return len(m.connList)
 }
 
-func (m *ConnectionManager) Reconnection(name string) *Connection {
-	con := m.Get(name)
-	if con == nil {
-		return con
-	}
-	con.client = redis.NewClient(con.options)
-	return con
-}
-
 func (c *Connection) GetRedisClient() *redis.Client {
 	if c.client == nil {
 		c.ReconnectRedisClient()
