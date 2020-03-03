@@ -1,7 +1,7 @@
 # go-redis-driver
 
 ```go
-import "github.com/qq1060656096/go-redis-driver"
+import "github.com/qq1060656096/go-redis-manager"
 
 manager := NewConnectionManager()
 manager.Add("test1", &redis.Options{
