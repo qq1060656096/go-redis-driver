@@ -1,4 +1,4 @@
-package redis_manager
+package manager
 
 import (
 	"github.com/go-redis/redis"
