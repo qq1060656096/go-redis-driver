@@ -46,7 +46,7 @@ func (m *ConnectionManager) Exist(name string) bool {
 	return true
 }
 
-func (m *ConnectionManager) length() int {
+func (m *ConnectionManager) Length() int {
 	return len(m.connList)
 }
 
