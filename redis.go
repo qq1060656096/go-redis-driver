@@ -1,6 +1,7 @@
 package redisManager
 
 import (
+	"encoding/json"
 	"github.com/go-redis/redis"
 )
 
@@ -49,6 +50,32 @@ func (m *ConnectionManager) Exist(name string) bool {
 func (m *ConnectionManager) Length() int {
 	return len(m.connList)
 }
+
+func (m ConnectionManager) String() string {
+	type tmpT struct {
+		HasClient bool
+		Options struct{
+			Addr string
+			Password string
+			DB int
+		}
+	}
+	list := make(map[string]tmpT)
+	for k, v := range m.connList {
+		tmp := tmpT{}
+		if v.client != nil {
+			tmp.HasClient = true
+			tmp.Options.Addr = (*v).options.Addr
+			tmp.Options.Password = (*v).options.Password
+			tmp.Options.DB = (*v).options.DB
+
+		}
+		list[k] = tmp
+	}
+	bytes, _ := json.Marshal(list)
+	return string(bytes)
+}
+
 
 func (c *Connection) GetRedisClient() *redis.Client {
 	if c.client == nil {

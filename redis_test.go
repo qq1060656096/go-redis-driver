@@ -18,7 +18,7 @@ func TestAll(t *testing.T) {
 		Password: "123456", // no password set
 		DB:       2,        // use default DB
 	})
-	assert.Equal(t, 2, m.length(), "driver.length.func.error")
+	assert.Equal(t, 2, m.Length(), "driver.length.func.error")
 
 	con := m.Get("test3.driverNotExist")
 	isNil := false
@@ -39,4 +39,6 @@ func TestAll(t *testing.T) {
 	m.Get("test2").DisconnectRedisClient()
 	err = m.Get("test2").GetRedisClient().Set("test2.key2", "test2.value2.1", 0).Err()
 	assert.Equal(t, nil, err, "driver.get.test2.setRedisKeyValue.error")
+
+	assert.Less(t, 1, len(m.String()))
 }
