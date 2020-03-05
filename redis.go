@@ -65,11 +65,10 @@ func (m ConnectionManager) String() string {
 		tmp := tmpT{}
 		if v.client != nil {
 			tmp.HasClient = true
-			tmp.Options.Addr = (*v).options.Addr
-			tmp.Options.Password = (*v).options.Password
-			tmp.Options.DB = (*v).options.DB
-
 		}
+		tmp.Options.Addr = (*v).options.Addr
+		tmp.Options.Password = (*v).options.Password
+		tmp.Options.DB = (*v).options.DB
 		list[k] = tmp
 	}
 	bytes, _ := json.Marshal(list)
